@@ -42,8 +42,8 @@ body {
   margin-bottom: 0;
 }
 
-.country-info {
-  padding-left:40px;
+.country-info__list {
+  padding-left:80px;
   list-style-type: none;
 }
 

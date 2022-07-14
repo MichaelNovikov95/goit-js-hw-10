@@ -13,6 +13,7 @@ const handleSearch = () => {
   const inputValue = inputRef.value.trim();
 
   if (!inputValue) {
+    divRef.innerHTML = '';
     ulRef.innerHTML = '';
     return;
   } else {
@@ -23,10 +24,9 @@ const handleSearch = () => {
       }
       if (data.length > 10 || inputValue === 1) {
         ulRef.innerHTML = '';
-        divRef.innerHTML = '';
         Notiflix.Notify.info("Too many matches found. Please enter a more specific name.");
       } else if (data.length === 1) {
-        ulRef.innerHTML = ''
+        ulRef.innerHTML = '';
         createFullMarkup(data);
       } else if (data.length <= 10 || data.length >= 2) {
         divRef.innerHTML = '';
@@ -59,7 +59,7 @@ function createFullMarkup(elements) {
   const fullInfo = elements
   .map(({capital, population, languages}) => {
     return `
-    <ul class="country-info">
+    <ul class="country-info__list">
     <li class="country-item">Capital: ${capital}</li>
     <li class="country-item">Population: ${population}</li>
     <li class="country-item">Languages: ${Object.values(languages)}</li>
