@@ -2,11 +2,8 @@ import './css/styles.css';
 import { onSearch } from './fetchCountries';
 import debounce from 'lodash.debounce';
 import Notiflix from 'notiflix';
-
-const inputRef = document.querySelector('#search-box');
-const ulRef = document.querySelector('.country-list');
-const divRef = document.querySelector('.country-info');
-const DEBOUNCE_DELAY = 300;
+import {createMarkupList, createFullMarkup} from './createMarkup';
+import {inputRef, ulRef, divRef, DEBOUNCE_DELAY} from './refs';
 
 
 const handleSearch = () => {
@@ -41,43 +38,6 @@ const handleSearch = () => {
   }
 }
 
-
-function createMarkupList(elements) {
-  const previewCountryInfo = elements
-    .map(({flags, name}) => {
-      return `<div class="country-preview">
-      <img class="flag" src="${flags.svg}" alt="${name.official} flag"></>
-      <h3 class="country-name">${name.official}</h3>
-      </div>`;
-    })
-    .join('');
-  ulRef.innerHTML = previewCountryInfo;
-}
-
-
-function createFullMarkup(elements) {
-  const fullInfo = elements
-  .map(({capital, population, languages}) => {
-    return `
-    <ul class="country-info__list">
-    <li class="country-item">Capital: ${capital}</li>
-    <li class="country-item">Population: ${population}</li>
-    <li class="country-item">Languages: ${Object.values(languages)}</li>
-    </ul>`;
-  })
-  .join('');
-const CountryInfo = elements.map(({flags, name}) => {
-  return `<div class="country-preview">
-  <img class="flag" src="${flags.svg}" alt="${name.official} flag"></>
-  <h3 class="country-name big">${name.official}</h3>
-  </div>`;
-})
-.join('');
-  ulRef.innerHTML = CountryInfo;
-  divRef.innerHTML = fullInfo;
-}
-
 let debounced = debounce(handleSearch, DEBOUNCE_DELAY);
-
 
 inputRef.addEventListener('input', debounced);
